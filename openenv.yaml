@@ -1,18 +1,16 @@
-# openenv.yaml configuration for Scaler x Meta Hackathon
 name: "warehouse-logistics-rl"
-version: "1.0.0"
-description: "AI-powered warehouse logistics optimization environment."
-author: "Sankirth R Bhat"
+version: "0.1.0"
+description: "Warehouse logistics environment for the Meta-PyTorch Hackathon."
+type: "environment"
 
-# The link to your LIVE Hugging Face Space
+# This must match your Running Space
 submission_url: "https://huggingface.co/spaces/SaNKy23/openenv-warehouse-logistics"
 
-# Points the validator to your entry point file
 entrypoint:
   file: "inference.py"
   class: "Environment"
 
-# Standard specifications for the Warehouse environment
+# Adding these standard specs helps the validator
 spec:
   action_type: "Discrete"
   observation_type: "Box"
