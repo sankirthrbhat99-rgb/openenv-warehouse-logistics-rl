@@ -1,7 +1,7 @@
 name: warehouse-logistics-rl
 version: 1.0.0
 description: Warehouse Logistics RL Environment
-submission_url: https://huggingface.co/spaces/SaNKy23/openenv-warehouse-logistics
+submission_url: https://huggingface.co/spaces/SaNKy23/openenv-warehouse-logistics-rl
 entrypoint:
   file: inference.py
   class: Environment
