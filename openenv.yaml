@@ -1,5 +1,18 @@
-name: warehouse-logistics-rl
-version: 1.0.0
-description: AI Warehouse Logistics
-submission_url: https://huggingface.co/spaces/SaNKy23/openenv-warehouse-logistics
-entrypoint: file: inference.py    class: Environment
+# openenv.yaml
+name: "warehouse-logistics-rl"
+version: "0.1.0"
+description: "AI-powered warehouse logistics optimization for Meta-PyTorch Hackathon."
+type: "environment"
+
+# The URL to your Green/Running Hugging Face Space
+submission_url: "https://huggingface.co/spaces/SaNKy23/openenv-warehouse-logistics"
+
+# This maps the validator to your code
+entrypoint:
+  file: "inference.py"
+  class: "Environment"
+
+# Standard Reinforcement Learning specifications
+spec:
+  action_type: "Discrete"
+  observation_type: "Box"
