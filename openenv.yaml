@@ -5,7 +5,7 @@ description: "A reinforcement learning environment for warehouse logistics optim
 author: "Sankirth R Bhat"
 
 # This points the validator to your Hugging Face Space
-submission_url: "https://huggingface.co/spaces/SaNKy23/openenv-warehouse-logistics"
+submission_url: "https://huggingface.co/spaces/SaNkY23/openenv-warehouse-logistics"
 
 # Define the interface for the validator
 entrypoint:
