@@ -1,7 +1,18 @@
-name: warehouse-logistics-rl
-version: 1.0.0
-description: Warehouse Logistics RL Environment
-submission_url: https://huggingface.co/spaces/SaNKy23/openenv-warehouse-logistics-rl
+# openenv.yaml
+name: "warehouse-logistics-rl"
+version: "1.0.0"
+description: "A reinforcement learning environment for warehouse logistics optimization."
+author: "Sankirth R Bhat"
+
+# This points the validator to your Hugging Face Space
+submission_url: "https://huggingface.co/spaces/SaNKy23/openenv-warehouse-logistics"
+
+# Define the interface for the validator
 entrypoint:
-  file: inference.py
-  class: Environment
+  file: "inference.py"
+  class: "Environment"
+
+# Define Action and Observation types (matches your OpenEnv logic)
+spec:
+  action_type: "Discrete"
+  observation_type: "Box"
