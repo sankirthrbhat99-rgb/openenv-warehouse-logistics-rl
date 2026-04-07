@@ -1,3 +1,12 @@
+---
+title: OpenEnv Warehouse Logistics
+emoji: 🚀
+colorFrom: blue
+colorTo: red
+sdk: docker
+pinned: false
+---
+
 # 📦 Warehouse Logistics RL - OpenEnv Meta PyTorch Hackathon
 
 **Team Name:** Instalock Innovators

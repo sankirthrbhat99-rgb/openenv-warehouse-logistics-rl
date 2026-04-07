@@ -4,7 +4,7 @@ from warehouse_env.models import WarehouseAction, WarehouseObservation
 import os
 import uvicorn
 
-app = create_app(WarehouseEnv)
+app = create_app(WarehouseEnv, WarehouseAction, WarehouseObservation)
 
 # This ensures the server uses the port Scaler assigns it during validation
 if __name__ == "__main__":
