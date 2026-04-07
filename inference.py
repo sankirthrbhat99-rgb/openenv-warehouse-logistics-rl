@@ -21,7 +21,8 @@ client = OpenAI(
 MODEL = "Qwen/Qwen2.5-72B-Instruct"
 
 def run_inference():
-    print("🤖 Starting Warehouse Agent Inference...")
+    print("🤖 Starting Warehouse Agent Inference...", flush=True)
+    print("[START] task=warehouse", flush=True)
     
     try:
         # Initialize the environment and get the first state
@@ -29,24 +30,26 @@ def run_inference():
         response.raise_for_status()
         state = response.json()
     except Exception as e:
-        print(f"❌ Inference error: Failed to connect to the environment server at {ENV_URL}: {e}")
-        print("💡 Ensure the environment server is running and reachable.")
+        print(f"❌ Inference error: Failed to connect to the environment server at {ENV_URL}: {e}", flush=True)
+        print("💡 Ensure the environment server is running and reachable.", flush=True)
+        print("[END] task=warehouse score=0.0 steps=0", flush=True)
         return
         
     for step in range(25): # Increased to 25 steps to give it time to walk the whole grid
-        print(f"\n--- Step {step+1} ---")
-        print(f"State: {state}")
+        print(f"\n--- Step {step+1} ---", flush=True)
+        print(f"State: {state}", flush=True)
         
         obs = state.get('observation', {})
         current_pos = obs.get('current_position')
         
         if state.get('done'):
-            print("🎉 SUCCESS! The Agent successfully picked up the package! PERFECT SCORE: 1.0!")
+            print("🎉 SUCCESS! The Agent successfully picked up the package! PERFECT SCORE: 1.0!", flush=True)
+            print(f"[END] task=warehouse score=1.0 steps={step}", flush=True)
             break
         
         # 🔧 THE BYPASS SAFETY NET
         if current_pos == [9, 9]:
-            print("🤖 Agent reached the target! Bypassing API and executing Pick-up (4).")
+            print("🤖 Agent reached the target! Bypassing API and executing Pick-up (4).", flush=True)
             action_int = 4
         else:
             # 🔧 THE SMARTER PROMPT
@@ -85,23 +88,29 @@ def run_inference():
                 action_int = int(''.join(filter(str.isdigit, action_str))[0])
                 
             except Exception as e:
-                print(f"⚠️ LLM Error. Defaulting to Action 2. Error: {e}")
+                print(f"⚠️ LLM Error. Defaulting to Action 2. Error: {e}", flush=True)
                 action_int = 2
             
-        print(f"Agent chose action: {action_int}")
+        print(f"Agent chose action: {action_int}", flush=True)
         
         # Send action to environment
         try:
             step_response = requests.post(f"{ENV_URL}/step", json={"action": {"action_type": action_int}})
             if step_response.status_code != 200:
-                 print(f"❌ ERROR: /step failed. Server said: {step_response.text}")
+                 print(f"❌ ERROR: /step failed. Server said: {step_response.text}", flush=True)
+                 print(f"[END] task=warehouse score=0.0 steps={step}", flush=True)
                  break
             state = step_response.json()
+            print(f"[STEP] step={step+1} reward={state.get('reward', 0.0)}", flush=True)
         except Exception as e:
-            print(f"❌ ERROR: Failed to send action to server: {e}")
+            print(f"❌ ERROR: Failed to send action to server: {e}", flush=True)
+            print(f"[END] task=warehouse score=0.0 steps={step}", flush=True)
             break
             
         time.sleep(1) 
+    else:
+        print("⏳ Max steps reached without picking up the package.", flush=True)
+        print(f"[END] task=warehouse score=0.0 steps={25}", flush=True)
 
 if __name__ == "__main__":
     run_inference()
