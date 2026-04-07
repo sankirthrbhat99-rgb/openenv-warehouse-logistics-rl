@@ -6,9 +6,10 @@ import uvicorn
 
 app = create_app(WarehouseEnv, WarehouseAction, WarehouseObservation)
 
-# This ensures the server uses the port Scaler assigns it during validation
-if __name__ == "__main__":
+# NEW CODE (Correct for the grader)
+def main():
     port = int(os.environ.get("PORT", 7860))
-    # Note: the "app:app" part assumes your FastAPI variable is named 'app'
-    # inside this app.py file.
     uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)
+
+if __name__ == "__main__":
+    main()
