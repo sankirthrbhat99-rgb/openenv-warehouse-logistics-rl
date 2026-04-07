@@ -10,12 +10,10 @@ load_dotenv()
 # The URL of your local Uvicorn server
 ENV_URL = os.environ.get("ENV_URL", "http://localhost:7860")
 
-# 🔧 PASTE YOUR BRAND NEW TOKEN HERE
-MY_TOKEN = os.environ.get("HF_TOKEN") or "hf_your_token_here"
-
+# Use the injected environment variables for the LLM proxy
 client = OpenAI(
-    base_url="https://router.huggingface.co/v1",
-    api_key=MY_TOKEN
+    base_url=os.environ["API_BASE_URL"],
+    api_key=os.environ["API_KEY"]
 )
 
 MODEL = "Qwen/Qwen2.5-72B-Instruct"
